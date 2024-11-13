@@ -1,7 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 
 # models local
 from .models import Libro
@@ -25,7 +25,7 @@ class ListLibros(ListView):
             return Libro.objects.listar_libros(palabra_clave)
         
 
-
+# Libros de la misma categoria
 class ListLibros2(ListView):
     context_object_name = 'lista_libros2'
     template_name = "libro/lista2.html"
@@ -33,3 +33,8 @@ class ListLibros2(ListView):
     def get_queryset(self):
         
         return Libro.objects.listar_libros_categoria('4')
+    
+# Detalle del libro
+class LibroDetailView(DetailView):
+    template_name = 'Libro/detalle.html'
+    model = Libro

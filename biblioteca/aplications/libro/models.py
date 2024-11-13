@@ -3,10 +3,12 @@ from django.db import models
 # from local apps
 from aplications.autor.models import Autor
 # Create your models here.
-from .managers import LibroManager
+from .managers import LibroManager,CategoriaManager
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=30)
+
+    objects = CategoriaManager()
 
     def __str__(self):
         return str(self.id) + '-' + self.nombre
@@ -22,4 +24,4 @@ class Libro(models.Model):
     objects = LibroManager()
 
     def __str__(self):
-        return self.titulo
+        return str(self.id) + '-' + self.titulo
