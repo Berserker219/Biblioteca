@@ -2,8 +2,10 @@ from django.db import models
 
 # from local apps
 from aplications.autor.models import Autor
-# Create your models here.
+# Managers
 from .managers import LibroManager,CategoriaManager
+# Create your models here.
+
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=30)
