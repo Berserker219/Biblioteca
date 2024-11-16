@@ -1,6 +1,7 @@
 import datetime
 from django.db import models
 from django.db.models import Q, Count
+from django.contrib.postgres.search import TrigramSimilarity
 
 class LibroManager(models.Manager):
     # managers para el modelo Libros
@@ -14,6 +15,21 @@ class LibroManager(models.Manager):
             fecha__range=('2000-01-01', '2024-12-01')
             )
         return resultado
+    
+    # buscar libros por similar 
+    def listar_libros_trg(self,kword):
+        if len(kword) > 3:
+            resultado = self.filter(
+                titulo__trigram_similar=kword
+            )
+            return resultado
+        elif 0 < len(kword) <= 3:
+            resultado = self.filter(
+                titulo__icontains = kword
+            ) 
+            return resultado
+        else:
+            return self.all()[:10]
 
     # Listar libros por palabras y fechas
     def listar_libros2(self,kword, fecha1, fecha2):

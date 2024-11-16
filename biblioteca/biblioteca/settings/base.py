@@ -22,6 +22,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # complementos de postgres
+    'django.contrib.postgres',
     # Local apps
     'aplications.autor',
     'aplications.libro',
