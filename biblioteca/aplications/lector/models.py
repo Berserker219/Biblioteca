@@ -17,9 +17,17 @@ class Prestamo(models.Model):
     libro = models.ForeignKey(Libro,on_delete=models.CASCADE, related_name='libro_prestamo')
     fecha_prestamo = models.DateField()
     fecha_devolucion = models.DateField(blank=True,null=True)
-    edad = models.PositiveIntegerField(default=0)
+    devuelto = models.BooleanField(default=False)
 
     objects = PrestamoManager()
 
+
+    # directamente en el modelo, lo sobreescribimos, para cuando no tenemos admnistrador de usuario y no creemos una interfaz
+    """
+    def save(self, *args, **kwargs):
+        self.libro.stok = self.libro.stok - 1
+        self.libro.save()
+        super(Prestamo, self).save(*args, **kwargs)
+    """
     def __str__(self):
-        return self.libro.titulo
+        return str(self.id) + '-' +self.libro.titulo
